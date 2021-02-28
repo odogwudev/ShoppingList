@@ -27,18 +27,19 @@ class ShoppingDaoTest {
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @Before
-    fun setup() {
-        database = Room.inMemoryDatabaseBuilder(
-            ApplicationProvider.getApplicationContext(), ShoppingItemDatabase::class.java
-        ).allowMainThreadQueries().build()
+    /** fun setup() {
+    database = Room.inMemoryDatabaseBuilder(
+    ApplicationProvider.getApplicationContext(),
+    //ShoppingItemDatabase::class.java
+    ).allowMainThreadQueries().build()
 
-        dao = database.shoppingDao()
+    dao = database.shoppingDao()
     }
 
     @After
     fun teardown() {
-        database.close()
-    }
+    database.close()
+    }*/
 
     @Test
     fun insertShoppingItem() = runBlockingTest {
