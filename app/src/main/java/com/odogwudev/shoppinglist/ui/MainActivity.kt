@@ -1,7 +1,8 @@
-package com.odogwudev.shoppinglist
+package com.odogwudev.shoppinglist.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.odogwudev.shoppinglist.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
