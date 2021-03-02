@@ -7,6 +7,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth.assertThat
 import com.odogwudev.shoppinglist.getOrAwaitValue
+import com.odogwudev.shoppinglist.launchFragmentInHiltContainer
 import com.odogwudev.shoppinglist.ui.ShoppingFragment
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -47,6 +48,12 @@ class ShoppingDaoTest {
         database.close()
     }
 
+    @Test
+    fun testLaunchFragmentInHiltContainer() {
+        launchFragmentInHiltContainer<ShoppingFragment> {
+
+        }
+    }
 
 
     @Test
