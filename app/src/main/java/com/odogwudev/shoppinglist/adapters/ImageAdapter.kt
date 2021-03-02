@@ -31,6 +31,7 @@ class ImageAdapter @Inject constructor(
         get() = differ.currentList
         set(value) = differ.submitList(value)
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
         return ImageViewHolder(
             LayoutInflater.from(parent.context).inflate(

@@ -29,9 +29,9 @@ class ImagePickFragment @Inject constructor(
 
     }
 
-    private fun setupRecyclerView(){
+    private fun setupRecyclerView() {
         rvImages.apply {
-            adapter =imageAdapter
+            adapter = imageAdapter
             layoutManager = GridLayoutManager(requireContext(), GRID_SPAN_COUNT)
         }
     }
