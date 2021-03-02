@@ -1,12 +1,19 @@
 package com.odogwudev.shoppinglist.ui
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.swipeLeft
+import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.filters.MediumTest
+import com.google.common.truth.Truth.assertThat
 import com.odogwudev.shoppinglist.R
+import com.odogwudev.shoppinglist.adapters.ShoppingItemAdapter
+import com.odogwudev.shoppinglist.data.local.ShoppingItem
+import com.odogwudev.shoppinglist.getOrAwaitValue
 import com.odogwudev.shoppinglist.launchFragmentInHiltContainer
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -16,14 +23,22 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mockito.*
+import javax.inject.Inject
 
 
 @MediumTest
 @HiltAndroidTest
 @ExperimentalCoroutinesApi
 class ShoppingFragmentTest {
+
     @get:Rule
     var hiltRule = HiltAndroidRule(this)
+
+    @get:Rule
+    var instantTaskExecutorRule = InstantTaskExecutorRule()
+
+    @Inject
+    lateinit var testFragmentFactory: TestShoppingFragmentFactory
 
     @Before
     fun setup() {
@@ -31,10 +46,33 @@ class ShoppingFragmentTest {
     }
 
     @Test
-    fun clickAddSHoppingItemButton_navigatetoaddshoppingitemfragment() {
+    fun swipeShoppingItem_deleteItemInDb() {
+        val shoppingItem = ShoppingItem("TEST", 1, 1f, "TEST", 1)
+        var testViewModel: ShoppingViewModel? = null
+        launchFragmentInHiltContainer<ShoppingFragment>(
+            fragmentFactory = testFragmentFactory
+        ) {
+            testViewModel = viewModel
+            viewModel?.insertShoppingItemIntoDb(shoppingItem)
+        }
+
+        onView(withId(R.id.rvShoppingItems)).perform(
+            RecyclerViewActions.actionOnItemAtPosition<ShoppingItemAdapter.ShoppingItemViewHolder>(
+                0,
+                swipeLeft()
+            )
+        )
+
+        assertThat(testViewModel?.shoppingItem?.getOrAwaitValue()).isEmpty()
+    }
+
+    @Test
+    fun clickAddShoppingItemButton_navigateToAddShoppingItemFragment() {
         val navController = mock(NavController::class.java)
-        //`when`(navController.popBackStack()).thenReturn(true)
-        launchFragmentInHiltContainer<ShoppingFragment> {
+
+        launchFragmentInHiltContainer<ShoppingFragment>(
+            fragmentFactory = testFragmentFactory
+        ) {
             Navigation.setViewNavController(requireView(), navController)
         }
 
