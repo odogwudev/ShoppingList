@@ -3,8 +3,9 @@
     package="com.odogwudev.shoppinglist">
 
     <application>
-        <activity android:name=".HiltTestActivity"
-            android:exported="false"/>
+        <activity
+            android:name=".HiltTestActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

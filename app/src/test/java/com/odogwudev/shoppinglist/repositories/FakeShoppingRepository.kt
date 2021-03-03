@@ -6,7 +6,7 @@ import com.odogwudev.shoppinglist.data.local.ShoppingItem
 import com.odogwudev.shoppinglist.data.remote.responses.ImageResponse
 import com.odogwudev.shoppinglist.other.Resource
 
-class FakeShoppingRepository: ShoppingRepository {
+class FakeShoppingRepository : ShoppingRepository {
 
     private val shoppingItems = mutableListOf<ShoppingItem>()
 
@@ -19,18 +19,18 @@ class FakeShoppingRepository: ShoppingRepository {
         shouldReturnNetworkError = value
     }
 
-    override suspend fun insertShoppingItem(shoppingItem: ShoppingItem) {
-        shoppingItems.add(shoppingItem)
-        refreshLiveData()
-    }
-
     private fun refreshLiveData() {
         observableShoppingItems.postValue(shoppingItems)
         observableTotalPrice.postValue(getTotalPrice())
     }
 
-    private fun getTotalPrice() : Float {
+    private fun getTotalPrice(): Float {
         return shoppingItems.sumByDouble { it.price.toDouble() }.toFloat()
+    }
+
+    override suspend fun insertShoppingItem(shoppingItem: ShoppingItem) {
+        shoppingItems.add(shoppingItem)
+        refreshLiveData()
     }
 
     override suspend fun deleteShoppingItem(shoppingItem: ShoppingItem) {
@@ -53,5 +53,4 @@ class FakeShoppingRepository: ShoppingRepository {
             Resource.success(ImageResponse(listOf(), 0, 0))
         }
     }
-
 }

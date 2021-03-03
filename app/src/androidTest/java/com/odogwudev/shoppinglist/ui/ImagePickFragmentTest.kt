@@ -33,12 +33,13 @@ import javax.inject.Inject
 class ImagePickFragmentTest {
 
     @get:Rule
-    var instantExecutorRule = InstantTaskExecutorRule()
+    var instantTaskExecutorRule = InstantTaskExecutorRule()
+
     @get:Rule
-    var hiltRule = HiltAndroidRule { this }
+    var hiltRule = HiltAndroidRule(this)
 
     @Inject
-    lateinit var fragmentFactory: FragmentFactory
+    lateinit var fragmentFactory: ShoppingFragmentFactory
 
     @Before
     fun setup() {
@@ -47,9 +48,9 @@ class ImagePickFragmentTest {
 
     @Test
     fun clickImage_popBackStackAndSetImageUrl() {
+        val navController = mock(NavController::class.java)
         val imageUrl = "TEST"
         val testViewModel = ShoppingViewModel(FakeShoppingRepositoryAndroidTest())
-        val navController = mock(NavController::class.java)
         launchFragmentInHiltContainer<ImagePickFragment>(fragmentFactory = fragmentFactory) {
             Navigation.setViewNavController(requireView(), navController)
             imageAdapter.images = listOf(imageUrl)
@@ -68,3 +69,9 @@ class ImagePickFragmentTest {
     }
 
 }
+
+
+
+
+
+

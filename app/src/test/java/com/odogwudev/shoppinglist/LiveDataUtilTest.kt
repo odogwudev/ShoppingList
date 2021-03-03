@@ -7,8 +7,14 @@ import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeoutException
 
+/**
+ * Gets the value of a [LiveData] or waits for it to have one, with a timeout.
+ *
+ * Use this extension from host-side (JVM) tests. It's recommended to use it alongside
+ * `InstantTaskExecutorRule` or a similar mechanism to execute tasks synchronously.
+ */
 @VisibleForTesting(otherwise = VisibleForTesting.NONE)
-fun <T> LiveData<T>.getOrAwaitValue(
+fun <T> LiveData<T>.getOrAwaitValueTest(
     time: Long = 2,
     timeUnit: TimeUnit = TimeUnit.SECONDS,
     afterObserve: () -> Unit = {}
@@ -19,7 +25,7 @@ fun <T> LiveData<T>.getOrAwaitValue(
         override fun onChanged(o: T?) {
             data = o
             latch.countDown()
-            this@getOrAwaitValue.removeObserver(this)
+            this@getOrAwaitValueTest.removeObserver(this)
         }
     }
     this.observeForever(observer)

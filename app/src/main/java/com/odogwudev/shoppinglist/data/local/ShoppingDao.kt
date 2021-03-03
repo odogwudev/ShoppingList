@@ -3,6 +3,7 @@ package com.odogwudev.shoppinglist.data.local
 import androidx.lifecycle.LiveData
 import androidx.room.*
 
+
 @Dao
 interface ShoppingDao {
 

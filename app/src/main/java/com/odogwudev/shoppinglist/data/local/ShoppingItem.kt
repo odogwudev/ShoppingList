@@ -1,5 +1,6 @@
 package com.odogwudev.shoppinglist.data.local
 
+
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -10,5 +11,5 @@ data class ShoppingItem(
     var price: Float,
     var imageUrl: String,
     @PrimaryKey(autoGenerate = true)
-    var id: Int? = null
+    val id: Int? = null
 )

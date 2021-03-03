@@ -25,7 +25,6 @@ import org.junit.Test
 import org.mockito.Mockito.*
 import javax.inject.Inject
 
-
 @MediumTest
 @HiltAndroidTest
 @ExperimentalCoroutinesApi
@@ -63,7 +62,7 @@ class ShoppingFragmentTest {
             )
         )
 
-        assertThat(testViewModel?.shoppingItem?.getOrAwaitValue()).isEmpty()
+        assertThat(testViewModel?.shoppingItems?.getOrAwaitValue()).isEmpty()
     }
 
     @Test

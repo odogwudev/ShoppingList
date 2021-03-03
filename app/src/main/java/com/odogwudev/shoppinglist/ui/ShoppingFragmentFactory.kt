@@ -8,7 +8,7 @@ import com.odogwudev.shoppinglist.adapters.ImageAdapter
 import com.odogwudev.shoppinglist.adapters.ShoppingItemAdapter
 import javax.inject.Inject
 
-class ShoopingFragmentFactory @Inject constructor(
+class ShoppingFragmentFactory @Inject constructor(
     private val imageAdapter: ImageAdapter,
     private val glide: RequestManager,
     private val shoppingItemAdapter: ShoppingItemAdapter

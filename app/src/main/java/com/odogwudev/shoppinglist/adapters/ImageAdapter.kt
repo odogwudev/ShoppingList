@@ -16,7 +16,7 @@ class ImageAdapter @Inject constructor(
 ) : RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
     class ImageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
-    private val diffcallback = object : DiffUtil.ItemCallback<String>() {
+    private val diffCallback = object : DiffUtil.ItemCallback<String>() {
         override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
             return oldItem == newItem
         }
@@ -26,11 +26,11 @@ class ImageAdapter @Inject constructor(
         }
     }
 
-    private val differ = AsyncListDiffer(this, diffcallback)
+    private val differ = AsyncListDiffer(this, diffCallback)
+
     var images: List<String>
         get() = differ.currentList
         set(value) = differ.submitList(value)
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
         return ImageViewHolder(
@@ -52,6 +52,7 @@ class ImageAdapter @Inject constructor(
         val url = images[position]
         holder.itemView.apply {
             glide.load(url).into(ivShoppingImage)
+
             setOnClickListener {
                 onItemClickListener?.let { click ->
                     click(url)
@@ -62,6 +63,5 @@ class ImageAdapter @Inject constructor(
 
     override fun getItemCount(): Int {
         return images.size
-
     }
 }

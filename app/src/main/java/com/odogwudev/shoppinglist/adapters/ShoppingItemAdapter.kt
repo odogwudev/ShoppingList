@@ -57,7 +57,7 @@ class ShoppingItemAdapter @Inject constructor(
             tvName.text = shoppingItem.name
             val amountText = "${shoppingItem.amount}x"
             tvShoppingItemAmount.text = amountText
-            val priceText = "${shoppingItem.price}€"
+            val priceText = "${shoppingItem.price}₦"
             tvShoppingItemPrice.text = priceText
         }
     }

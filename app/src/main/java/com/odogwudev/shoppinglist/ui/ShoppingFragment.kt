@@ -61,7 +61,7 @@ class ShoppingFragment @Inject constructor(
     }
 
     private fun subscribeToObservers() {
-        viewModel?.shoppingItem?.observe(viewLifecycleOwner, Observer {
+        viewModel?.shoppingItems?.observe(viewLifecycleOwner, Observer {
             shoppingItemAdapter.shoppingItems = it
         })
         viewModel?.totalPrice?.observe(viewLifecycleOwner, Observer {
@@ -79,4 +79,3 @@ class ShoppingFragment @Inject constructor(
         }
     }
 }
-
